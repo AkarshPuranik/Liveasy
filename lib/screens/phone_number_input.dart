@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:mazdoor_user/auth/otp.dart';
-import 'package:mazdoor_user/screens/profile_selection.dart';
-
+import 'package:liveasy/auth/otp.dart';
+import 'package:liveasy/screens/profile_selection.dart';
 
 class PhoneNumberInputScreen extends StatelessWidget {
   final TextEditingController phoneController = TextEditingController();
@@ -15,28 +13,37 @@ class PhoneNumberInputScreen extends StatelessWidget {
       phoneNumber: phoneNumber,
       verificationCompleted: (PhoneAuthCredential credential) async {
         await _auth.signInWithCredential(credential);
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => ProfileSelectionScreen(),
-          ),
-        );
+        _navigateWithFade(context, ProfileSelectionScreen());
       },
       verificationFailed: (FirebaseAuthException e) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Verification failed. Try again.')));
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Verification failed. Try again.')),
+        );
       },
       codeSent: (String verificationId, int? resendToken) {
-        Navigator.push(
+        _navigateWithFade(
           context,
-          MaterialPageRoute(
-            builder: (context) => OTPScreen(
-              phoneNumber: phoneNumber,
-              verificationId: verificationId,
-            ),
+          OTPScreen(
+            phoneNumber: phoneNumber,
+            verificationId: verificationId,
           ),
         );
       },
       codeAutoRetrievalTimeout: (String verificationId) {},
+    );
+  }
+
+  // Function to navigate with a fade transition
+  void _navigateWithFade(BuildContext context, Widget destination) {
+    Navigator.push(
+      context,
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) => destination,
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return FadeTransition(opacity: animation, child: child);
+        },
+        transitionDuration: Duration(milliseconds: 500), // Adjust the duration here
+      ),
     );
   }
 

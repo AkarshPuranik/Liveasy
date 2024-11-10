@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:mazdoor_user/screens/profile_selection.dart';
+import 'package:liveasy/screens/profile_selection.dart';
+
 
 class OTPScreen extends StatefulWidget {
   final String phoneNumber;

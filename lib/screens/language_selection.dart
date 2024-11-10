@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mazdoor_user/screens/phone_number_input.dart';
+import 'package:liveasy/screens/phone_number_input.dart';
+
 
 class LanguageSelectionScreen extends StatelessWidget {
   @override

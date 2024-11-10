@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:mazdoor_user/screens/language_selection.dart';
+import 'package:liveasy/screens/language_selection.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
